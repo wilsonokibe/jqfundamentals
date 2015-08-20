@@ -324,6 +324,10 @@ margin: 15px 0;
 	width: 10000px;
 	height: 10000px;
 	background-color: #333;
-	z-index: 100;
-	
+	z-index: 100;	
+}
+
+/*new user class for search input*/
+.searchClass {
+	border: dotted 1px grey;
 }
