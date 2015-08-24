@@ -78,7 +78,7 @@ $(document).ready(function() {
   ($newOption).insertAfter('div.module:last() option[value="tuesday"]');
 
   //Add a new div.module to the page after the last one; put a copy of one of the existing images inside of it.
-  ($('<div>Hello New Div</div>')
+  ($('<div></div>')
     .addClass('module'))
     .insertAfter('div.module:last');
   $('img:first')
