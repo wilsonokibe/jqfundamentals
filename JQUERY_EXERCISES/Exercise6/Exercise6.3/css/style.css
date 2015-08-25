@@ -340,3 +340,11 @@ margin: 15px 0;
 .searchClass {
 	border: dotted 1px grey;
 }
+
+.number {
+	color: blue;
+}
+
+ol li {
+	display: inline;
+}

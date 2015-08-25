@@ -19,9 +19,8 @@ the "hover" class for this purpose.)
 //EVENTS 6.2
 //REVEAL HIDDEN TEXT
 $(document).ready(function() {
+  const dropDown = new DropdownMenu();
 
-   const dropDown = new DropdownMenu();
-
-   //Exercise 6.2
-   dropDown.menu();
+  //Exercise 6.2
+  dropDown.menu();
 })
