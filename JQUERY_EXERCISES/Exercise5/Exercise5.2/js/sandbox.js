@@ -5,12 +5,18 @@ class TabbedNavigation {
   //Question 5.2 - a: Hide all of the modules
   hideAllModules() {
     $('.module').hide();
+
+    //Exercise 5.1 -b
+    this.createListElement();
   }
 
   //Question 5.2 - b: Create an unordered list element before the first module.
   createListElement() {
     var $newUnorderedList = $('<ul></>');
     $($newUnorderedList).insertBefore('.module:first');
+
+    //Exercise 5.1 -c
+    this.IterateAndAddToModules();
   }
 
   //Question 5.2 - c: Iterate over the modules using $.fn.each. For each module, 
@@ -23,6 +29,9 @@ class TabbedNavigation {
       myItems.push('<li>'+$h2Text+'</li>'); 
     });
     $newUnorderedList.append(myItems.join(''));
+
+    //Exercise 5.1 -d
+    this.bindClickEvent();
   }
 
   //Question 5.2 - d: Bind a click event to the list item that:
@@ -44,7 +53,10 @@ class TabbedNavigation {
         $(this).prev().removeClass('current');
         $(this).addClass('current');           
       }
-    })
+    });
+
+    //Exercise 5.1 -e
+    this.showFirstTab();
   }
 
   //Question 5.2 - e: Finally, show the first tab.
@@ -62,16 +74,4 @@ $(document).ready(function() {
 
   //Exercise 5.1 -a
   tab.hideAllModules();
-
-  //Exercise 5.1 -b
-  tab.createListElement();
-
-  //Exercise 5.1 -c
-  tab.IterateAndAddToModules();
-
-  //Exercise 5.1 -d
-  tab.bindClickEvent();
-
-  //Exercise 5.1 -e
-  tab.showFirstTab();
 });
