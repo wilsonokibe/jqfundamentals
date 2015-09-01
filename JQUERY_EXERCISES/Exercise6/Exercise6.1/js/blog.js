@@ -1,6 +1,12 @@
 "use strict"; 
 
-class InputHint {
+class ExcerptParagraph {
+
+  init() {
+
+    //Exercise 6.1
+    this.showHide();
+  }
 
   //Question 6.1: Reveal Hidden Text:
   //Clicking on a headline in the #blog div should slide down the excerpt paragraph
@@ -12,12 +18,12 @@ class InputHint {
 
       $( "#blog h3" )
         .next()
-          .removeClass('excerpt')
+        .removeClass('excerpt')
         .end()
-          .not(this)
-            .next()
-              .addClass('excerpt');    
-    })  
+        .not(this)
+        .next()
+        .addClass('excerpt');    
+    });  
   }
 }
 
@@ -26,20 +32,5 @@ class InputHint {
 $(document).ready(function() {
 
   const excerpt = new ExcerptParagraph();
-
-  //Exercise 6.1
-  excerpt.showHide();
-
-  $('#blog h3').on('click', function(event) {
-    event.preventDefault();
-    var $clickedLink = $(this);
-
-    $( "#blog h3" )
-      .next()
-        .removeClass('excerpt')
-      .end()
-        .not(this)
-          .next()
-          .addClass('excerpt');    
-  })  
+  excerpt.init(); 
 })

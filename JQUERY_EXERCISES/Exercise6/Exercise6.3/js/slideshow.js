@@ -19,10 +19,16 @@ are and which image you're currently viewing. (Hint: $.fn.prevAll will come in h
 
 class Slideshow {
 
+  init() {  
+
+    this.moveSlideshowTop();  
+
+    this.slideShow(); 
+  }
+
   //Question 6.3 - a: Move the #slideshow element to the top of the body.
   moveSlideshowTop() {
-    $('#slideshow').insertBefore('body #header'); 
-    this.slideEffect();   
+    $('#slideshow').insertBefore('#header');      
   }  
 
 /* Question 6.3 - b:
@@ -34,43 +40,55 @@ When you get to the end of the list, start again at the beginning.
 For an extra challenge, create a navigation area under the slideshow that shows how many images there 
 are and which image you're currently viewing. (Hint: $.fn.prevAll will come in handy for this.)
 */
-  slideEffect() {
+  slideShow() {
     this.createElementUnderSlideshow();
     this.createNavigationElement();
 
-    $('#slideshow > li:gt(0)').hide();
+    this.hideOtherImages();
 
     var pause = 3000;
     var fadeDuration = 1500;
     var firstSlide = $('#slideshow > li:first');
     var totalSlides = $('#slideshow > li').length;
-    var $elem;
 
+    this.slideEffect(pause, fadeDuration, firstSlide, totalSlides);
+  }
+
+  slideEffect(pause, fadeDuration, firstSlide, totalSlides) {
     $('ol li.class_1').addClass('number');
+    let self = this;
     setInterval(function() {
       $('#slideshow > li:first')
         .fadeOut(0, function() {
-          if($(this).next().hasClass('class_1')) {
-            $('ol li.class_2').removeClass('number');
-            $('ol li.class_3').removeClass('number');
-            $('ol li.class_1').addClass('number');
-          } 
-          else if($(this).next().hasClass('class_2')) {
-            $('ol li.class_1').removeClass('number');
-            $('ol li.class_3').removeClass('number');
-            $('ol li.class_2').addClass('number');
-          } 
-          else if($(this).next().hasClass('class_3')) {
-            $('ol li.class_1').removeClass('number');
-            $('ol li.class_2').removeClass('number');
-            $('ol li.class_3').addClass('number');
-          }
+          self.checkAndChangeClass($(this));
         })
-          .next()
-          .fadeIn(fadeDuration)
+        .next()
+        .fadeIn(fadeDuration)
         .end()
         .appendTo('#slideshow');
     }, pause);  
+  }
+
+  checkAndChangeClass(mythis) {
+    if(mythis.next().hasClass('class_1')) {
+      $('ol li.class_2').removeClass('number');
+      $('ol li.class_3').removeClass('number');
+      $('ol li.class_1').addClass('number');
+    } 
+    else if(mythis.next().hasClass('class_2')) {
+      $('ol li.class_1').removeClass('number');
+      $('ol li.class_3').removeClass('number');
+      $('ol li.class_2').addClass('number');
+    } 
+    else if(mythis.next().hasClass('class_3')) {
+      $('ol li.class_1').removeClass('number');
+      $('ol li.class_2').removeClass('number');
+      $('ol li.class_3').addClass('number');
+    }
+  }
+
+  hideOtherImages() {  
+    $('#slideshow > li:gt(0)').hide();
   }
 
   createElementUnderSlideshow() {
@@ -89,7 +107,5 @@ are and which image you're currently viewing. (Hint: $.fn.prevAll will come in h
 
 $(document).ready(function() {
   const slideshow = new Slideshow();
-
-
-  slideshow.moveSlideshowTop();  
+  slideshow.init();
 })

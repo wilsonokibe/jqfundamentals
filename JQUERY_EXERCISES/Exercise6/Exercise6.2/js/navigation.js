@@ -1,6 +1,10 @@
 "use strict"; 
 
-class InputHint {
+class DropdownMenu {
+
+  init() {
+    this.menu();
+  }
 
 /*Question 6.2: Create Dropdown Menus
 Hovering over an item in the main menu should show that item's submenu items, if any.
@@ -22,5 +26,5 @@ $(document).ready(function() {
   const dropDown = new DropdownMenu();
 
   //Exercise 6.2
-  dropDown.menu();
+  dropDown.init();
 })
