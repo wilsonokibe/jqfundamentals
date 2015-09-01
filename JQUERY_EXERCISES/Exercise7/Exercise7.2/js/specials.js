@@ -25,8 +25,13 @@ class User {
     this.cachedData = null;
   }
 
+  init() {    
+    this.removeSubmitButton();
+    this.newDivElement();
+  }
+
   newDivElement() {
-    $('#specials form').after($('<div>DIV ELEMENT</div>'));
+    $('#specials form').after($('<div></div>'));
     this.userSelection();
   }
 
@@ -75,8 +80,7 @@ class User {
 
 $(document).ready(function() {
   const user = new User();
-  user.removeSubmitButton();
-  user.newDivElement();
+  user.init();
 })
 
 

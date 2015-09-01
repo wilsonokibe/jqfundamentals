@@ -15,6 +15,10 @@ Remember to make liberal use of console.log to make sure you're on the right pat
 
 class Blog {
 
+  init() {
+    this.newDivForEachBlog();
+  }
+
   newDivForEachBlog() {
     var $targetDiv = $('<div></div>');
     $('div.module ul > li h3').each(function(index, element) {
@@ -48,5 +52,5 @@ class Blog {
 
 $(document).ready(function() {
   const blog = new Blog();
-  blog.newDivForEachBlog();
+  blog.init();
 });
