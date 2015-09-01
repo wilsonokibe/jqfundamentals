@@ -2,36 +2,45 @@
 
 class TabbedNavigation {
 
-  //Question 5.2 - a: Hide all of the modules
-  hideAllModules() {
-    $('.module').hide();
+  init() {
 
-    //Exercise 5.1 -b
+    //Question 5.2 - a: Hide all of the modules
+    this.hideAllModules();
+
+    //Question 5.2 - b: Create an unordered list element before the first module.
     this.createListElement();
-  }
 
-  //Question 5.2 - b: Create an unordered list element before the first module.
+    //Exercise 5.1 -d
+    this.bindClickEvent();
+
+    //Exercise 5.1 -e
+    this.showFirstTab();
+  }
+  
+  hideAllModules() {
+    $('.module').hide();    
+  }
+  
   createListElement() {
-    var $newUnorderedList = $('<ul></>');
-    $($newUnorderedList).insertBefore('.module:first');
+    var $newUnorderedList = $('<ul></ul>');
+    $newUnorderedList = $($newUnorderedList)
+    .insertBefore('.module:first')
+    .addClass('newUlClass');
 
     //Exercise 5.1 -c
-    this.IterateAndAddToModules();
+    this.iterateAndAddToModules($newUnorderedList);    
   }
 
   //Question 5.2 - c: Iterate over the modules using $.fn.each. For each module, 
   //use the text of the h2 element as the text for a list item that  
   //you add to the unordered list element.
-  IterateAndAddToModules() {
+  iterateAndAddToModules($newUnorderedList) {
     var myItems = [];
     $('.module').each(function(index, element) {
       var $h2Text = $(element).find('h2').html();
       myItems.push('<li>'+$h2Text+'</li>'); 
     });
     $newUnorderedList.append(myItems.join(''));
-
-    //Exercise 5.1 -d
-    this.bindClickEvent();
   }
 
   //Question 5.2 - d: Bind a click event to the list item that:
@@ -39,29 +48,25 @@ class TabbedNavigation {
     //~Adds a class of "current" to the clicked list item
     //~Removes the class "current" from the other list item
   bindClickEvent() {
-    $newUnorderedList.find('li').bind('click',function() { //NOTE: using toggle will give us the same result
-      $('#specials').hide();
-      $('#blog').hide();
+    this.hideAllModules();
 
-      if($(this).html() == 'Blog') {
-        $('#blog').show();      
-        $(this).next().removeClass('current');
-        $(this).addClass('current');
-      } 
-      else if($(this).html() == 'Specials') {   
-        $('#specials').show();
-        $(this).prev().removeClass('current');
-        $(this).addClass('current');           
-      }
+    $('.newUlClass').find('li').bind('click',function() {
+      var liIndex;
+      liIndex = $(this).index();
+
+      $('div.module')
+        .hide()
+        .eq(liIndex)
+        .show();
+        
+        $(this).addClass('current')
+          .siblings().removeClass('current');
     });
-
-    //Exercise 5.1 -e
-    this.showFirstTab();
   }
 
   //Question 5.2 - e: Finally, show the first tab.
   showFirstTab() {
-    $newUnorderedList.find('li:first').trigger('click');
+    $('.newUlClass').find('li:first').trigger('click');
     //Alternative ~ $('#blog').show();  
   }
 }
@@ -71,7 +76,5 @@ class TabbedNavigation {
 $(document).ready(function() {
 
   const tab = new TabbedNavigation();
-
-  //Exercise 5.1 -a
-  tab.hideAllModules();
+  tab.init();
 });
