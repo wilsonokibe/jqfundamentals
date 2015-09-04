@@ -26,6 +26,9 @@ class User {
   }
 
   init() {    
+    $.getJSON('./data/specials.json', function(data) {
+      this.cachedData = data; 
+    }.bind(this));
     this.removeSubmitButton();
     this.newDivElement();
   }
@@ -58,15 +61,12 @@ class User {
     }
   }
 
-  requestAndGetJSON(attribute) {
-    let self = this;
-    $.getJSON('./data/specials.json', function(data) {
-      self.cachedData = data;      
-      self.displayRequestResult(attribute, data);
-    });
+  requestAndGetJSON(attribute) { 
+    self.displayRequestResult(attribute);
   }
 
-  displayRequestResult(attribute, data) {
+  displayRequestResult(attribute) {
+    let data = this.cachedData;
     var html = '';
     html += '<h3>'+data[attribute].title+'</h3>';
     html += '<p style="color:'+data[attribute].color+'"><img src="'+data[attribute].image+'"/></br>'+data[attribute].text+'</p>';
