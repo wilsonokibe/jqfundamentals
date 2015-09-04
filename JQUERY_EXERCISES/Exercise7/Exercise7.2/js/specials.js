@@ -26,11 +26,15 @@ class User {
   }
 
   init() {    
+    this.getJsonData();
+    this.removeSubmitButton();
+    this.newDivElement();
+  }
+
+  getJsonData() {
     $.getJSON('./data/specials.json', function(data) {
       this.cachedData = data; 
     }.bind(this));
-    this.removeSubmitButton();
-    this.newDivElement();
   }
 
   newDivElement() {
