@@ -21,9 +21,6 @@ their choice in the select?
 */
 
 class User {
-  constructor() {
-    this.cachedData = null;
-  }
 
   init() {    
     this.getJsonData();
@@ -33,7 +30,7 @@ class User {
 
   getJsonData() {
     $.getJSON('./data/specials.json', function(data) {
-      this.cachedData = data; 
+      this.specialsData = data; 
     }.bind(this));
   }
 
@@ -46,34 +43,26 @@ class User {
     let self = this;
     var $option = $('#specials select');
     $option.on('change', function() {
-      var attribute = $(this).val(); 
-      self.hideOrShow(attribute);   
+      var selectedDay = $(this).val(); 
+      self.hideOrShow(selectedDay);   
     });
   }
 
-  hideOrShow(attribute) {
-    if(attribute == "") { 
+  hideOrShow(selectedDay) {
+    if(selectedDay == "") { 
       $('#specials div').hide();
     }
     else { 
       $('#specials div').show();
-      if(this.cachedData != null) {
-        this.displayRequestResult(attribute, this.cachedData);
-      } else {
-        this.requestAndGetJSON(attribute);
-      }   
+      this.displayRequestResult(selectedDay);
     }
   }
 
-  requestAndGetJSON(attribute) { 
-    self.displayRequestResult(attribute);
-  }
-
-  displayRequestResult(attribute) {
-    let data = this.cachedData;
+  displayRequestResult(day) {
+    let data = this.specialsData;
     var html = '';
-    html += '<h3>'+data[attribute].title+'</h3>';
-    html += '<p style="color:'+data[attribute].color+'"><img src="'+data[attribute].image+'"/></br>'+data[attribute].text+'</p>';
+    html += '<h3>'+data[day].title+'</h3>';
+    html += '<p style="color:'+data[day].color+'"><img src="'+data[day].image+'"/></br>'+data[day].text+'</p>';
     $('#specials div').html(html);
   }
 
@@ -85,11 +74,4 @@ class User {
 $(document).ready(function() {
   const user = new User();
   user.init();
-})
-
-
-/*
-<li class="buttons">
-  <input type="submit" class="input_submit" value="Go" />
-</li>
-*/
+});
