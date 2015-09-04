@@ -17,6 +17,7 @@ class Blog {
 
   init() {
     this.newDivForEachBlog();
+    this.bindEvent();
   }
 
   newDivForEachBlog() {
@@ -27,23 +28,21 @@ class Blog {
       $targetDivClone.insertAfter($(this));
       $(this).data('id', 'post'+(index+1));
     });
-    this.bindEvent();
   }
 
   bindEvent() {
     let self = this;
-    $('div.module ul > li a').click(function(event) {
+    const $h3 = $('div.module li h3');
+    $h3.click(function(event) {
       event.preventDefault();
-      self.getBlogContent($(this));
-      if($('div.module ul > li a').not($(this))) {
-        $('div.module ul > li a').parent().siblings('div').hide();
-        $(this).parent().siblings('div').show();
-      }
+      self.getBlogContent($(this).find('a'));
+      $('div.module').find('div').hide();
+      $(this).siblings('div').show();
     });
   }
 
-  getBlogContent(selector) {
-    var href = $(selector).attr('href');
+  getBlogContent(link) {
+    var href = link.attr('href');
     var tempArray = href.split('#');
     var id = '#' + tempArray[1];
     $('div.module ul > li div').load('./data/blog.html '+id);
