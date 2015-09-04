@@ -20,9 +20,7 @@ are and which image you're currently viewing. (Hint: $.fn.prevAll will come in h
 class Slideshow {
 
   init() {  
-
     this.moveSlideshowTop();  
-
     this.slideShow(); 
   }
 
@@ -43,7 +41,6 @@ are and which image you're currently viewing. (Hint: $.fn.prevAll will come in h
   slideShow() {
     this.createElementUnderSlideshow();
     this.createNavigationElement();
-
     this.hideOtherImages();
 
     var pause = 3000;
@@ -60,7 +57,7 @@ are and which image you're currently viewing. (Hint: $.fn.prevAll will come in h
     setInterval(function() {
       $('#slideshow > li:first')
         .fadeOut(0, function() {
-          self.checkAndChangeClass($(this));
+          self.changeNavigationColor($(this));
         })
         .next()
         .fadeIn(fadeDuration)
@@ -69,21 +66,14 @@ are and which image you're currently viewing. (Hint: $.fn.prevAll will come in h
     }, pause);  
   }
 
-  checkAndChangeClass(mythis) {
-    if(mythis.next().hasClass('class_1')) {
-      $('ol li.class_2').removeClass('number');
-      $('ol li.class_3').removeClass('number');
-      $('ol li.class_1').addClass('number');
-    } 
-    else if(mythis.next().hasClass('class_2')) {
-      $('ol li.class_1').removeClass('number');
-      $('ol li.class_3').removeClass('number');
-      $('ol li.class_2').addClass('number');
-    } 
-    else if(mythis.next().hasClass('class_3')) {
-      $('ol li.class_1').removeClass('number');
-      $('ol li.class_2').removeClass('number');
-      $('ol li.class_3').addClass('number');
+  changeNavigationColor(mythis) {
+    for(let a = 1; a <= $('ol li').length; a++) {
+      if(mythis.next().hasClass('class_'+a)) {
+        for(let i = 1; i <= $('ol li').length; i++) {
+          $('ol li.class_'+i).removeClass('number');
+        }
+        $('ol li.class_'+a).addClass('number');
+      }
     }
   }
 
