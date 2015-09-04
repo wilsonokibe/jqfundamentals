@@ -26,6 +26,7 @@ class User {
     this.getJsonData();
     this.removeSubmitButton();
     this.newDivElement();
+    this.eventBind();
   }
 
   getJsonData() {
@@ -35,16 +36,14 @@ class User {
   }
 
   newDivElement() {
-    $('#specials form').after($('<div></div>'));
-    this.userSelection();
+    $('#specials form').after($('<div></div>'));    
   }
 
-  userSelection() {
+  eventBind() {
     let self = this;
     var $option = $('#specials select');
-    $option.on('change', function() {
-      var selectedDay = $(this).val(); 
-      self.hideOrShow(selectedDay);   
+    $option.on('change', function() { 
+      self.hideOrShow($(this).val());   
     });
   }
 
