@@ -38,64 +38,52 @@ When you get to the end of the list, start again at the beginning.
 For an extra challenge, create a navigation area under the slideshow that shows how many images there 
 are and which image you're currently viewing. (Hint: $.fn.prevAll will come in handy for this.)
 */
+
   slideShow() {
-    this.createElementUnderSlideshow();
     this.createNavigationElement();
     this.hideOtherImages();
-
-    var pause = 3000;
-    var fadeDuration = 1500;
-    var firstSlide = $('#slideshow > li:first');
-    var totalSlides = $('#slideshow > li').length;
-
-    this.slideEffect(pause, fadeDuration, firstSlide, totalSlides);
+    this.slideEffect();
   }
 
-  slideEffect(pause, fadeDuration, firstSlide, totalSlides) {
-    $('ol li.class_1').addClass('number');
+  slideEffect() {
     let self = this;
+    $('ol li.class_1').addClass('number');
     setInterval(function() {
       $('#slideshow > li:first')
         .fadeOut(0, function() {
-          self.changeNavigationColor($(this));
+          self.changeNavigationColor();
         })
         .next()
-        .fadeIn(fadeDuration)
+        .fadeIn(1500)
         .end()
         .appendTo('#slideshow');
-    }, pause);  
+    }, 3000);
   }
 
-  changeNavigationColor(mythis) {
-    for(let a = 1; a <= $('ol li').length; a++) {
-      if(mythis.next().hasClass('class_'+a)) {
-        for(let i = 1; i <= $('ol li').length; i++) {
-          $('ol li.class_'+i).removeClass('number');
-        }
-        $('ol li.class_'+a).addClass('number');
-      }
-    }
+  changeNavigationColor() {
+    let className = $('#slideshow li:first').next().attr('class');
+    let ol = $('ol');
+    ol.find('li').removeClass('number');
+    ol.find('.' + className).addClass('number');
   }
 
   hideOtherImages() {  
     $('#slideshow > li:gt(0)').hide();
   }
 
-  createElementUnderSlideshow() {
-    $('<ol></ol>').insertAfter('#slideshow');
-  }
-
   createNavigationElement() {
-    $('#slideshow > li').each(function(idx, el) {
-      var number = idx+1;
-      var $list = $('<li> '+number+' </li>');
-      $list.addClass('class_'+number).appendTo('ol');
+    const $ol = $('<ol></ol>')
+    $('#slideshow > li').each(function(index) {
+      let number = index + 1;
+      let $list = $('<li> '+number+' </li>');
+      $list.addClass('class_'+number).appendTo($ol);
       $(this).addClass('class_'+number);
     });
+    $ol.insertAfter('#slideshow');
   }
 }
 
 $(document).ready(function() {
   const slideshow = new Slideshow();
   slideshow.init();
-})
+});
