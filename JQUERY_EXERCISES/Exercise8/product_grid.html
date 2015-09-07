@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Product Store</title>
+    <link rel="stylesheet" type="text/css" href="css/product_grid.css">
+  </head>
+
+  <body>
+    <div id="left_content">  
+      <div class="left_container">                
+        <div class="innertube" id="filter_product">PRODUCTS FILTER
+          <div id="filter_brand">BY BRANDS
+            <ul>
+              <li>
+                <input type="checkbox" name="brand_a" id="brand_1">
+                <label for="brand_1"> Brand A</label>
+              </li>
+              <li>
+                <input type="checkbox" name="brand_b" id="brand_2">
+                <label for="brand_2"> Brand B</label>
+              </li>
+              <li>
+                <input type="checkbox" name="brand_c" id="brand_3">
+                <label for="brand_3"> Brand C</label>
+              </li>
+              <li>
+                <input type="checkbox" name="brand_d" id="brand_4">
+                <label for="brand_4"> Brand D</label>
+              </li>
+            </ul>
+          </div>
+          <div id="filter_color">BY COLORS  
+            <ul>
+              <li>
+                <input type="checkbox" id="Yellow">
+                <label for="Yellow"> Yellow</label>
+              </li>
+              <li>
+                <input type="checkbox" id="Red">
+                <label for="Red"> Red</label>
+              </li>
+              <li>
+                <input type="checkbox" id="Green">
+                <label for="Green"> Green</label>
+              </li>
+              <li>
+                <input type="checkbox" id="Blue">
+                <label for="Blue"> Blue</label>
+              </li>
+            </ul> 
+          </div>   
+          <div id="filter_available">AVAILABLE PRODUCTS</div>
+          <div id="filter_all">ALL PRODUCTS</div>
+        </div> 
+      </div>
+    </div>
+
+    <div id="main_content">
+      <div class="products_container">
+
+      </div> 
+    </div>
+
+    <script src="libs/jquery-2.1.4.js"></script>
+    <script src="js/product_grid.js"></script>
+  </body>
+</html>
