@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Product Store</title>
+    <link rel="stylesheet" type="text/css" href="css/product_grid.css">
+  </head>
+
+  <body>
+    <div id="left_content">  
+      <div class="left_container">                
+        <div class="innertube" id="filter_product">PRODUCTS FILTER
+          <div id="filter_brand">BY BRANDS
+            <ul>
+              <li>
+                <input type="checkbox" name="brand_a" id="BRAND A">
+                <label for="BRAND A"> Brand A</label>
+              </li>
+              <li>
+                <input type="checkbox" name="brand_b" id="BRAND B">
+                <label for="BRAND B"> Brand B</label>
+              </li>
+              <li>
+                <input type="checkbox" name="brand_c" id="BRAND C">
+                <label for="BRAND C"> Brand C</label>
+              </li>
+              <li>
+                <input type="checkbox" name="brand_d" id="BRAND D">
+                <label for="BRAND D"> Brand D</label>
+              </li>
+            </ul>
+          </div>
+          <div id="filter_color">BY COLORS  
+            <ul>
+              <li>
+                <input type="checkbox" id="Yellow">
+                <label for="Yellow"> Yellow</label>
+              </li>
+              <li>
+                <input type="checkbox" id="Red">
+                <label for="Red"> Red</label>
+              </li>
+              <li>
+                <input type="checkbox" id="Green">
+                <label for="Green"> Green</label>
+              </li>
+              <li>
+                <input type="checkbox" id="Blue">
+                <label for="Blue"> Blue</label>
+              </li>
+            </ul> 
+          </div>   
+          <div id="filter_available">
+            <input type = "checkbox" id="available"><label for = "available">AVAILABLE PRODUCTS</label>
+          </div>
+          <div id="filter_all">ALL PRODUCTS</div>
+        </div> 
+      </div>
+    </div>
+
+    <div id="main_content">
+      <div class="products_container">
+
+      </div> 
+    </div>
+
+    <script src="libs/jquery-2.1.4.js"></script>
+    <script src="js/product_grid2.js"></script>
+  </body>
+</html>
