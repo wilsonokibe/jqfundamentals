@@ -51,17 +51,17 @@ are and which image you're currently viewing. (Hint: $.fn.prevAll will come in h
     setInterval(function() {
       $('#slideshow > li:first')
         .fadeOut(0, function() {
-          self.changeNavigationColor();
         })
         .next()
         .fadeIn(1500)
         .end()
         .appendTo('#slideshow');
+          self.changeNavigationColor();
     }, 3000);
   }
 
   changeNavigationColor() {
-    let className = $('#slideshow li:first').next().attr('class');
+    let className = $('#slideshow li:visible').attr('class');
     let ol = $('ol');
     ol.find('li').removeClass('number');
     ol.find('.' + className).addClass('number');
