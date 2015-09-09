@@ -1,100 +1,128 @@
 "use strict";
 
-class UserTodo {
+class ToDo {
 
   init() {
-    this.count = 0;
-    this.value1 = 0;
-
-    this.createUser();
-    this.addUser();
-    this.createTodo();
-    this.saveTodo();
     this.validator = new Validator();
+    this.nameArray = [];
+    this.count = 0;
+    this.eventHandler();
   }
 
-  createUser() {
+  eventHandler() {
     $('#create_user').click(function() {
       $('#user_input').show();
     });
+
+    $('#add_user').click(function() {
+      this.verifyUserInput();
+    }.bind(this));
+
+    $('#create_todo').click(function() {
+      $('#todo_group').show();
+      $('#user_group').hide();
+    });
+
+    $('#todo_save').click(function() { 
+      this.saveTodo();
+    }.bind(this));
   }
 
-  addUser() {
-    this.nameArray = [];
-    let userName = null;
-    let $div = '';
-    $('#add_user').click(function() {
-      userName = $('#user_name').val();
-
-      //validate userName (no duplication)
-      userName = this.validator.validateName(userName);
-      if(userName) {
-        //this.nameArray = this.nameArray.push(userName);
-        //this.validator.checkExistingNames(userName, this.nameArray);
-        $div = $('<div></div>');
-        $div
-          .text(userName)
-          .attr('id', this.count + 1)
-          .addClass('userClass');
-        $('#user_list').append($div);
-        $('#user_input').hide();
-        $('#user_name').val('');
-        this.count = this.count + 1;      
-        this.showCreateToDoButton();
+  verifyUserInput() {
+    let userName = this.nameFormat($('#user_name').val());
+    let result = this.validateName(userName);
+    if(result) {
+      let isDuplicate = this.checkDuplicateName(userName); 
+      if(!isDuplicate) {       
+        this.addUserToList(userName);
       }
-    }.bind(this));
+    }
+  }
+
+  nameFormat(name) {
+    let stringArray = [];
+    let myString = name.split(' ');  
+    for(let i = 0 ; i < myString.length ; i++) {
+      let part1 = myString[i].substring(0,1).toUpperCase();
+      let part2 = myString[i].substring(1).toLowerCase();
+      stringArray[i] = part1 + part2;
+    }  
+    let newName = stringArray.join(' ');
+    return newName;
+  } 
+
+
+  checkDuplicateName(userName) {
+    if(this.nameArray.length >= 1) {
+      if(!($.inArray(userName, this.nameArray)) >= -1) {
+        alert(`"${userName}" already exists.`);
+        return true;
+      } else {
+        this.nameArray.push(userName);
+        return false;
+      }
+    } else {
+      this.nameArray.push(userName);
+      return false;
+    }
+  }
+
+  addUserToList(userName) { 
+    if(userName) {
+      let $div = $('<div></div>');
+      $div
+        .text(userName+' (0)')
+        .attr('id', this.count + 1)
+        .addClass('userClass');
+      $('#user_list').append($div);
+      $('#user_input').hide();
+      $('#user_name').val('');
+      this.count = this.count + 1; 
+      this.populateSelectOption(userName);     
+      this.showCreateToDoButton();
+    }
   }
 
   showCreateToDoButton() {
     if(this.count >= 1) {      
-      this.populateSelectOption();
       $('#create_todo').show();
     }
   }
 
-  createTodo() {
-    $('#create_todo').click(function() {
-      $('#todo_group').show();
-    });
-  }
-
-  populateSelectOption() {
+  populateSelectOption(name) {
     let self = this;
     let $option = $('<option></option>');
-    $('.userClass').each(function() {
-      $option
-        .text($(this).text())
-        .attr('id', self.count)
-        .addClass('optionClass')
-        .appendTo('#todo_select');
-    });
+    $option
+      .text(name)
+      .attr('id', self.count)
+      .addClass('optionClass')
+      .appendTo('#todo_select');
   }
 
   saveTodo() {  
-    let self = this;  
-    $('#todo_save').click(function() {      
-      let $input = '';
-      let $selectedOption = '';
-      let $selectedOptionId = '';
-
-      $input = $('#todo_input').val();
-      $selectedOption = $('#todo_select').val();
-      $selectedOptionId = $('#todo_select').find('option:selected').attr('id');
-
-      //validate $input
-      self.addTodoInList($input, $selectedOption, $selectedOptionId);      
-      self.getAssignmentCount($selectedOption, $selectedOptionId);
-    });
+    if(this.count >= 1) {  
+      let input = $('#todo_input').val();
+      let result = this.validateToDo(input);
+      if(result) {
+        $('#user_group').show();
+        let $selectedOption = $('#todo_select').val();
+        let $selectedOptionId = $('#todo_select').find('option:selected').attr('id');
+        this.addTodoInList(input, $selectedOption, $selectedOptionId);      
+        this.getAssignmentCount($selectedOption, $selectedOptionId);
+      }
+    } else {
+      alert(`You cannot create to-do: No user exists`);
+    }
   }
 
   addTodoInList(input, option, id) {
     let $checkBox = this.createCheckbox(id);
     let $div = $('<div></div>');
     $div
-      .text(input + ' assigned by (' + option + ')')
+      .append($checkBox)
+      .append(' '+input + ' assigned by (' + option + ')')
       .attr('data-id', id)
       .addClass('todoListClass')
-      .append($checkBox)
     $('#todo_list').append($div);
     $('#todo_input').val('');
     $('#todo_group').hide();
@@ -103,35 +131,19 @@ class UserTodo {
 
   createCheckbox(data_id) {
     let id = $('input[type="checkbox"]').length + 1;
-    let $checkBox = $('<input />', {type: 'checkbox', id: id, 'data-id': data_id, class: 'chkbox'});
+    let $checkBox = $('<input />');
+    $checkBox
+      .attr({
+        'type': 'checkbox',
+        'data-id': data_id})
+      .addClass('chkbox');
     return $checkBox;
   }
 
   getAssignmentCount(name, id) {    
-    let todoCount = this.countTotalAssigned(id);
-    let idCount = this.countCheckedAssigned(id);
-    idCount = todoCount - idCount;
-    this.displayAssignmentCount(idCount, id, name);
-  }
-
-  countTotalAssigned(id) {
-    let todoCount = 0;
-    $('.todoListClass').each(function() {
-      if($(this).attr('data-id') === id) {
-        todoCount = todoCount + 1;
-      }       
-    });
-    return todoCount;
-  }
-
-  countCheckedAssigned(id) {
-    let checkedCount = 0;
-    $('input[data-id="'+id+'"]:checkbox').each(function() {
-      if($(this).is(':checked')) {
-        checkedCount = checkedCount + 1;          
-      }
-    });
-    return checkedCount;
+    let $unchecked = $('.todoListClass').find("[data-id='" + id + "']").not(':checked');
+    let count = $unchecked.length;
+    this.displayAssignmentCount(count, id, name);
   }
 
   displayAssignmentCount(idCount, id, name) {    
@@ -163,49 +175,35 @@ class UserTodo {
     $('.userClass').attr('div[id="'+id+'"]', function() {
       name = $('div[id="' + id + '"]').text();
     });
-    name = name.match(/\w*/i);
+    name = this.stripeName(name);
     return name;
   }
-}
 
-class Validator {
-  constructor() {
-    this.toDo = new UserTodo();    
+  stripeName(name) {
+    name = name.replace(/\([0-9]\)/, '');
+    return name;
   }
 
   validateName(name) {
-    if(this.isEmpty(name)) {
+    if(this.validator.isEmpty(name)) {
       alert(`Input is empty!`);
-      $('#user_input').hide();
       return false;
-    }
-    else {
-      name = this.nameFormat(name);
-      return name;
-    }
-  }
-
-  isEmpty(value) {
-    if(value == null || value.trim() == '') {
+    } else {
       return true;
     }
-    return false;
   }
 
-  nameFormat(name) {
-    return (name.match(/\w*/i));
+  validateToDo(value) {
+    if(this.validator.isEmpty(value)) {
+      alert(`To-do input is empty!`);
+      return false;
+    } else { 
+      return true;
+    }
   }
-
-  // checkExistingNames(userName, nameArray) {
-  //   for(let i = 0; i <= nameArray.length; i++) {
-  //     if(userName == nameArray[i]) {
-  //       console.log(userName);
-  //     }
-  //   }
-  // }
 }
 
 $(document).ready(function() {
-  const user = new UserTodo();
+  const user = new ToDo();
   user.init();
 });
