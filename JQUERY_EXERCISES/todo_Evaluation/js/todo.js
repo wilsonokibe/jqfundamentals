@@ -35,10 +35,8 @@ class ToDo {
 
   verifyUserInput() {
     let userName = this.nameFormat($('#user_name').val());
-    if(this.validateName(userName)) { 
-      if(!this.checkDuplicateName(userName)) {       
-        this.addUserToList(userName);
-      }
+    if(this.validateName(userName) && !this.checkDuplicateName(userName)) {       
+      this.addUserToList(userName);
     }
   }
 
@@ -65,18 +63,16 @@ class ToDo {
 
   addUserToList(userName) { 
     this.nameArray.push(userName);
-    if(userName) {
-      let $div = $('<div></div>');
-      $div
-        .text(userName+' (0)')
-        .attr('id', ++this.count)
-        .addClass('users');
-      $('#user_list').append($div);
-      $('#user_input').hide();
-      $('#user_name').val('');
-      this.populateSelectOption(userName);     
-      this.showCreateToDoButton();
-    }
+    let $div = $('<div></div>');
+    $div
+      .text(userName+' (0)')
+      .attr('id', ++this.count)
+      .addClass('users');
+    $('#user_list').append($div);
+    $('#user_input').hide();
+    $('#user_name').val('');
+    this.populateSelectOption(userName);     
+    this.showCreateToDoButton();
   }
 
   showCreateToDoButton() {
