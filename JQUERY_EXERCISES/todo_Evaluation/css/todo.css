@@ -1,55 +1,48 @@
-body{
-  margin: 0px;
-  padding: 0px;
-  border: 0;
-  overflow: hidden;
-  height: 100%; 
-  max-height: 100%; 
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+  background-color: SkyBlue;
+  border: 1px solid;
+}
+
+.left{
+  width: 50%;
+  text-align: left;
+}
+
+.right{
+  width: 40%; 
+  text-align: right;
+}
+
+.right, .left {  
+  display: inline-block;
+  min-height: 10px;
+  margin: 10px;
+}
+
+#todo_list, #user_list {
+  text-align: left;
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
+
+#user_group, #todo_group {
   text-align: center;
 }
 
-.container1, .contact {
-  width:80%; 
-  font-family: tahoma;
+input[type="text"], input[type="button"] { 
+  margin: 0 2px;  
 }
-
-#left_content{
-  position: absolute;
-  top: 0;
-  bottom: 0; 
-  left: 0;
-  width: 50%; /*Width of frame div*/
-  height: 100%;
-  overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable*/
-  background: #fff;
-}
-
-#right_content{
-  position: fixed;
-  top: 0; 
-  left: 50%; /*Set left value to WidthOfFrameDiv*/
-  right: 0;
-  bottom: 0;
-  overflow: auto; 
-  background: #fff;
-}
-
-.container {
-  margin: 20px;
-  /*background-color: #87CEEB;*/
-}
-
-
 
 hr {
-   height: 0;
-   max-height: 0;
-   font-size: 1px;
-   line-height: 0;
-   clear: both;
+  height: 0;
+  max-height: 0;
+  font-size: 1px;
+  line-height: 0;
+  clear: both;
 }
-
-
 
 #user_input {
   margin-top: 10px;

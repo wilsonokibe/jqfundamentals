@@ -12,6 +12,7 @@ class ToDo {
   eventHandler() {
     $('#create_user').click(function() {
       $('#user_input').show();
+      $('#user_name').focus();
     });
 
     $('#add_user').click(function() {
@@ -21,6 +22,9 @@ class ToDo {
     $('#create_todo').click(function() {
       $('#todo_group').show();
       $('#user_group').hide();
+      $('#user_input').hide();      
+      $('#user_name').val('');
+      $('#todo_input').focus();
     });
 
     $('#todo_save').click(function() { 
@@ -54,7 +58,9 @@ class ToDo {
 
   checkDuplicateName(userName) {
     if(this.nameArray.length >= 1) {
-      if(!($.inArray(userName, this.nameArray)) >= -1) {
+      let isExist = ($.inArray(userName, this.nameArray));
+      console.log(isExist);
+      if(isExist >= 0) {
         alert(`"${userName}" already exists.`);
         return true;
       } else {
@@ -142,7 +148,7 @@ class ToDo {
 
   getAssignmentCount(name, id) {    
     let $unchecked = $('.todoListClass').find("[data-id='" + id + "']").not(':checked');
-    let count = $unchecked.length;
+    let count = ($unchecked).length;
     this.displayAssignmentCount(count, id, name);
   }
 
