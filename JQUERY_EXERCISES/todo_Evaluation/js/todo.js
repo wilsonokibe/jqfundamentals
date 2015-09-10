@@ -70,7 +70,7 @@ class ToDo {
       $div
         .text(userName+' (0)')
         .attr('id', ++this.count)
-        .addClass('userClass');
+        .addClass('users');
       $('#user_list').append($div);
       $('#user_input').hide();
       $('#user_name').val('');
@@ -90,7 +90,6 @@ class ToDo {
     $option
       .text(name)
       .val(this.count)
-      .addClass('optionClass')
       .appendTo('#todo_select');
   }
 
@@ -117,7 +116,7 @@ class ToDo {
       .append($checkBox)
       .append(' '+input + ' assigned by (' + option + ')')
       .attr('data-id', id)
-      .addClass('todoListClass')
+      .addClass('check-box')
     $('#todo_list').append($div);
     $('#todo_input').val('');
     $('#todo_group').hide();
@@ -135,20 +134,20 @@ class ToDo {
   }
 
   getAssignmentCount(name, id) {    
-    let $unchecked = $('.todoListClass').find("[data-id='" + id + "']").not(':checked');
+    let $unchecked = $('.check-box').find("[data-id='" + id + "']").not(':checked');
     let count = ($unchecked).length;
     this.displayAssignmentCount(count, id, name);
   }
 
   displayAssignmentCount(idCount, id, name) {    
-    $('.userClass').attr('div[id="' + id + '"]', function() {
+    $('.users').attr('div[id="' + id + '"]', function() {
       $('div[id="' + id + '"]').text(name + ' (' + idCount + ')');
     });
   }
 
   checkBoxEvent() {
     let self = this;
-    $('.todoListClass').on('click', 'input[type="checkbox"]', function() {
+    $('.check-box').on('click', 'input[type="checkbox"]', function() {
       let id = $(this).data('id');
       let name = self.getAndStripeName(id);
 
@@ -163,7 +162,7 @@ class ToDo {
 
   getAndStripeName(id) {
     let name = '';
-    $('.userClass').attr('div[id="'+id+'"]', function() {
+    $('.users').attr('div[id="'+id+'"]', function() {
       name = $('div[id="' + id + '"]').text();
     });
     name = this.stripeName(name);
