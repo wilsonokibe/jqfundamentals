@@ -10,9 +10,11 @@ class ToDo {
   }
 
   eventHandler() {
-    $('#create_user').click(function() {
+    $('#create_user').click(function() {      
       $('#user_input').show();
       $('#user_name').focus();
+      $('#todo_group').hide();
+      $('#todo_input').val('');
     });
 
     $('#add_user').click(function() {
@@ -21,7 +23,6 @@ class ToDo {
 
     $('#create_todo').click(function() {
       $('#todo_group').show();
-      $('#user_group').hide();
       $('#user_input').hide();      
       $('#user_name').val('');
       $('#todo_input').focus();
@@ -34,10 +35,8 @@ class ToDo {
 
   verifyUserInput() {
     let userName = this.nameFormat($('#user_name').val());
-    let result = this.validateName(userName);
-    if(result) {
-      let isDuplicate = this.checkDuplicateName(userName); 
-      if(!isDuplicate) {       
+    if(this.validateName(userName)) { 
+      if(!this.checkDuplicateName(userName)) {       
         this.addUserToList(userName);
       }
     }
@@ -55,52 +54,42 @@ class ToDo {
     return newName;
   } 
 
-
   checkDuplicateName(userName) {
-    if(this.nameArray.length >= 1) {
-      let isExist = ($.inArray(userName, this.nameArray));
-      console.log(isExist);
-      if(isExist >= 0) {
-        alert(`"${userName}" already exists.`);
-        return true;
-      } else {
-        this.nameArray.push(userName);
-        return false;
-      }
-    } else {
-      this.nameArray.push(userName);
-      return false;
-    }
+    let isExist = ($.inArray(userName, this.nameArray));
+    if(isExist >= 0) {
+      alert(`"${userName}" already exists.`);
+      return true;
+    } 
+    return false;
   }
 
   addUserToList(userName) { 
+    this.nameArray.push(userName);
     if(userName) {
       let $div = $('<div></div>');
       $div
         .text(userName+' (0)')
-        .attr('id', this.count + 1)
+        .attr('id', ++this.count)
         .addClass('userClass');
       $('#user_list').append($div);
       $('#user_input').hide();
       $('#user_name').val('');
-      this.count = this.count + 1; 
       this.populateSelectOption(userName);     
       this.showCreateToDoButton();
     }
   }
 
   showCreateToDoButton() {
-    if(this.count >= 1) {      
+    if(this.count) {      
       $('#create_todo').show();
     }
   }
 
   populateSelectOption(name) {
-    let self = this;
     let $option = $('<option></option>');
     $option
       .text(name)
-      .attr('id', self.count)
+      .val(this.count)
       .addClass('optionClass')
       .appendTo('#todo_select');
   }
@@ -111,10 +100,10 @@ class ToDo {
       let result = this.validateToDo(input);
       if(result) {
         $('#user_group').show();
-        let $selectedOption = $('#todo_select').val();
-        let $selectedOptionId = $('#todo_select').find('option:selected').attr('id');
-        this.addTodoInList(input, $selectedOption, $selectedOptionId);      
-        this.getAssignmentCount($selectedOption, $selectedOptionId);
+        let userId = $('#todo_select').val();
+        let userName = $('#todo_select').find('option:selected').text();
+        this.addTodoInList(input, userName, userId);      
+        this.getAssignmentCount(userName, userId);
       }
     } else {
       alert(`You cannot create to-do: No user exists`);
@@ -136,7 +125,6 @@ class ToDo {
   }
 
   createCheckbox(data_id) {
-    let id = $('input[type="checkbox"]').length + 1;
     let $checkBox = $('<input />');
     $checkBox
       .attr({
@@ -161,15 +149,12 @@ class ToDo {
   checkBoxEvent() {
     let self = this;
     $('.todoListClass').on('click', 'input[type="checkbox"]', function() {
-      let count = 0;
-      let id = $(this).attr('data-id');
+      let id = $(this).data('id');
       let name = self.getAndStripeName(id);
-      let isChecked = $(this).is(':checked');
 
-      if(isChecked) {
+      if($(this).is(':checked')) {
         $(this).parent().addClass('strike'); 
-      } 
-      if(!isChecked)  {
+      } else {
         $(this).parent().removeClass('strike'); 
       }
       self.getAssignmentCount(name, id);
@@ -194,18 +179,16 @@ class ToDo {
     if(this.validator.isEmpty(name)) {
       alert(`Input is empty!`);
       return false;
-    } else {
-      return true;
-    }
+    } 
+    return true;
   }
 
   validateToDo(value) {
     if(this.validator.isEmpty(value)) {
       alert(`To-do input is empty!`);
       return false;
-    } else { 
-      return true;
-    }
+    } 
+    return true;
   }
 }
 
