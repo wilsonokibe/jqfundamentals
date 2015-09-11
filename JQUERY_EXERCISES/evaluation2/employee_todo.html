@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>Users todo</title>
+    <link href="css/employee_todo.css" rel="stylesheet" type="text/css" media="all" />
+
+  </head>
+
+  <body>
+    <div class="container"> 
+
+      <div id="left">
+        <div class="tabulate">
+          <div class="header">
+            ROLES
+          </div>
+        </div>       
+      </div>
+
+      <div id="middle">
+        <div class="tabulate">
+          <div class="header">
+            Employees
+          </div>
+        </div>
+      </div>
+
+      <div id="right">
+        <div class="tabulate">
+          <div class="header">
+          ToDos
+          <div id="todo-image"><img src="images/add-icon.png" height="20px" width="20px"></div>
+          </div>
+        </div>
+
+      </div>
+      <div id="assign">
+        <select id="assign-employee-select"></select>
+        <input type="button" value="Assign Employee" id="assign-employee-btn">
+      </div>
+
+      <div id="new-data">
+        <input type="text" id="new-role-input">
+        <input type="button" value="New Role" id="new-role">
+        <input type="text" id="new-employee-input">
+        <input type="button" value="New Employee" id="new-employee">
+      </div>
+      <input type="button" value="Add New" id="add-new">
+
+    </div>     
+
+    <script src="libs/jquery-2.1.4.js"></script>
+    <script src="js/role.js"></script>
+    <script src="js/employee.js"></script>
+    <script src="js/assignment.js"></script>
+    
+  </body>
+</html>

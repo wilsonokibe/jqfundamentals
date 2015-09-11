@@ -1,0 +1,143 @@
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  /*background-color: SkyBlue;*/
+  border: 1px solid;
+  overflow: hidden;
+}
+
+#left{
+  width: 20%;
+}
+
+#middle {  
+  width: 20%;
+}
+
+#right{
+  width: 50%; 
+  /*position: fixed;*/
+}
+
+#right, #left, #middle {  
+  display: inline-block;
+  min-height: 10px;
+  margin: 5px;
+  /*border: 2px dashed red;*/
+  text-align: center;
+}
+
+.header{
+  text-align: center;
+  /*text-transform: uppercase;*/
+  font-weight: bold;
+  min-height: 25px;
+  margin-top: 5px;
+}
+#todo-image{
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+}
+
+.tabulate{
+  border: 1px solid;
+}
+
+.roles-table, .role-todo{
+  text-decoration: underline;
+  font-weight: bold;
+}
+.employees-table, .roles-table{
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+.employees-table{  
+  text-align: left;
+}
+
+#new-data{
+  margin-top: 20px;
+  margin-bottom: 5px;
+  /*border: 1px dashed blue;*/
+}
+
+.inner{
+  margin: 10px;
+}
+.inner-left {
+  /*min-width: 200px;*/
+}
+.inner-right {
+   /*min-width: 400px;*/
+}
+
+.inner-left, .inner-right {
+  display: inline;
+  min-height: 10px;
+  margin: 15px;
+  text-align: center;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  padding: 5px
+}
+.image1, .image2, .image3{
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.image1{  
+  margin-left: 80px;
+}
+.input-group{
+  display: inline-block;
+}
+.input-box{
+  display: inline-block;
+}
+
+.inner-right-box{
+  display: inline-block;
+}
+
+
+
+
+#todo_list, #user_list {
+  text-align: left;
+  margin-left: 80px;
+  margin-bottom: 20px;
+}
+
+#user_group, #todo_group {
+  text-align: center;
+}
+
+input[type="text"], input[type="button"] { 
+  margin: 0 2px;  
+}
+
+hr {
+  height: 0;
+  max-height: 0;
+  font-size: 1px;
+  line-height: 0;
+  clear: both;
+}
+
+#user_input {
+  margin-top: 10px;
+}
+
+#user_input, #create_todo, #todo_group {
+  display: none;
+}
+
+.strike {
+  text-decoration: line-through;
+}
