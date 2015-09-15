@@ -2,16 +2,18 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
     <title>Users todo</title>
     <link href="css/employee_todo.css" rel="stylesheet" type="text/css" media="all" />
-
   </head>
 
   <body>
     <div class="container"> 
+
+      <div id="search-box">
+        <input type="text" id="search-input">
+        <button id="search-button"> Search </button>
+      </div>
 
       <div id="left">
         <div class="tabulate">
@@ -32,31 +34,44 @@
       <div id="right">
         <div class="tabulate">
           <div class="header">
-          ToDos
-          <div id="todo-image"><img src="images/add-icon.png" height="20px" width="20px"></div>
+            ToDos
+            <div id="todo-image">
+              <img id="todo2" src="images/add-icon.png" height="20px" width="20px">
+            </div>
           </div>
         </div>
-
       </div>
+
       <div id="assign">
         <select id="assign-employee-select"></select>
         <input type="button" value="Assign Employee" id="assign-employee-btn">
       </div>
 
       <div id="new-data">
-        <input type="text" id="new-role-input">
-        <input type="button" value="New Role" id="new-role">
-        <input type="text" id="new-employee-input">
-        <input type="button" value="New Employee" id="new-employee">
+        <div id="role-input-elements">
+          <label for="new-role-input">Enter Role: </label>
+          <input type="text" id="new-role-input">
+          <input type="button" value="Add" id="new-role">
+        </div>
+        <div id="employee-input-elements">
+          <label for="new-employee-input">Enter Employee: </label>
+          <input type="text" id="new-employee-input">
+          <input type="button" value="Add" id="new-employee">
+        </div>
       </div>
-      <input type="button" value="Add New" id="add-new">
 
+      <div id="add-1">
+        <input type="button" value="New Role" id="add-role-1">
+        <input type="button" value="New Employee" id="add-employee-1">
+      </div>
     </div>     
-
     <script src="libs/jquery-2.1.4.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/role.js"></script>
     <script src="js/employee.js"></script>
-    <script src="js/assignment.js"></script>
-    
+    <script src="js/todos.js"></script>   
+    <script src="js/assignment.js"></script>   
+    <script src="js/validator.js"></script>    
+    <script src="js/search.js"></script>   
   </body>
 </html>

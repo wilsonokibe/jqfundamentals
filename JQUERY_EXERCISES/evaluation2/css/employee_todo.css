@@ -7,6 +7,22 @@
   overflow: hidden;
 }
 
+ #add-employee-1{
+  margin-right: 0px;
+ }
+#add-1, #role-input-elements, #employee-input-elements, #assign{
+  margin-left: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#role-input-elements, #employee-input-elements, #add-employee-1, #assign{
+  display: none;
+}
+
+#search-box{
+  margin: 10px;
+}
+
 #left{
   width: 20%;
 }
@@ -41,6 +57,21 @@
   margin-right: 5px;
 }
 
+.show-image{
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+}
+
+.employee-hover{
+  background-color: #DCDCDC;
+}
+
+.hover-image{
+  display: inline-block;
+  float: right;
+}
+
 .tabulate{
   border: 1px solid;
 }
@@ -65,19 +96,20 @@
 }
 
 .inner{
-  margin: 10px;
+  /*margin: 10px;*/
 }
 .inner-left {
-  /*min-width: 200px;*/
+  float: left;
 }
 .inner-right {
    /*min-width: 400px;*/
 }
 
 .inner-left, .inner-right {
+  vertical-align: middle;
   display: inline;
   min-height: 10px;
-  margin: 15px;
+  margin: 10px 25px;
   text-align: center;
   border-top: 1px solid;
   border-left: 1px solid;
@@ -85,28 +117,26 @@
   border-bottom: 1px solid;
   padding: 5px
 }
-.image1, .image2, .image3{
+.image2, .image3{
   display: inline-block;
   vertical-align: middle;
   margin-left: 10px;
 }
 
-.image1{  
-  margin-left: 80px;
+.image1, .edit-delete{  
+  position: relative;
+  /*display: inline-block;*/
+  vertical-align: top;
+  float: right;
+  /*margin-left: 80px;*/
 }
 .input-group{
   display: inline-block;
+  display: none;
 }
-.input-box{
+.input-box, .inner-right-box{
   display: inline-block;
 }
-
-.inner-right-box{
-  display: inline-block;
-}
-
-
-
 
 #todo_list, #user_list {
   text-align: left;
@@ -134,7 +164,7 @@ hr {
   margin-top: 10px;
 }
 
-#user_input, #create_todo, #todo_group {
+#user_input, #create_todo, #todo_group, .image-hide {
   display: none;
 }
 
