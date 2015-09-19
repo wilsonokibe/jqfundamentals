@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Users Todo</title>
+    <link href="css/employee_todo.css" rel="stylesheet" type="text/css" media="all" />
+  </head>
+
+  <body>
+    <div class="container"> 
+
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Enter search here..">
+        <button id="search-button"> Search </button>
+      </div>
+
+      <div class="tables-div">
+
+        <div class="table-format" id="roles">
+          <h3 id="roles-h3">
+            ROLES
+          </h3>
+        </div>  
+
+        <div class="table-format" id="employees">
+          
+            <h3 id="employees-h3">
+              Employees
+            </h3>
+        </div>
+
+        <div class="table-format" id="todos">
+          <div>
+            <h3 id="todos-h3">
+              ToDos            
+            </h3>
+            <img id="show-hide-todo-content" src="images/add-icon.png" height="20px" width="20px">
+          </div>
+        </div>
+     
+      </div>
+
+      <div class="select-list">
+        <select id="select-employee"></select>
+        <input type="button" value="Assign" id="assign-employee-btn">
+      </div>
+
+      <div class="new-data-input">
+        <div id="role-input-elements">
+          <input type="text" id="new-role-input" placeholder="Enter new role here..">
+          <input type="button" value="Add" id="new-role">
+        </div>
+
+        <div id="employee-input-elements">
+          <input type="text" id="new-employee-input" placeholder="Enter name here..">
+          <input type="button" value="Add" id="new-employee">
+        </div>
+      </div>
+
+      <div class="new-employee-and-role-buttons">
+        <input type="button" value="New Role" id="show-role-input">
+        <input type="button" value="New Employee" id="show-employee-input">
+      </div>
+
+    <script src="libs/jquery-2.1.4.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/role.js"></script>
+    <script src="js/validator.js"></script>          
+    <script src="js/employee.js"></script>
+    <script src="js/assignment.js"></script>   
+    <script src="js/search.js"></script>   
+  
+  </body>
+</html>
