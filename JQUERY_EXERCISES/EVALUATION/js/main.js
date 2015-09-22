@@ -37,7 +37,7 @@ class Main{
 
     //search button listener
     $('#search-button').click(function(){
-      self.search.searchAction($(this));
+      self.search.searchAction();
     });
 
     //ROLE AND EMPLOYEE LISTENERS:

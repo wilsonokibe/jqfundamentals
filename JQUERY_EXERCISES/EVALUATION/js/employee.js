@@ -32,32 +32,18 @@ class Employee {
     if(confirmDelete) {
 
       //delete all associated data to employee on todos table
-      $('.name-container').each(function() {
-        if($(this).data('employee-id') === 'employee_' + employeeId) {
-          $(this).parent().remove();
-        }
-      });
+      $('.row-content [data-employee-id = employee_' + employeeId + ']').parent().remove();
 
       //delte all associated data to employee on roles
-      $('.employees-in-role').each(function(){
-        if($(this).data('employee_id') === employeeId) {
-          $(this).remove();
-        }
-      });
+      $('#roles [data-employee_id=' + employeeId + ']').remove();
 
       //delete employee's name from selection option
-        $('#option' + employeeId).remove();
-
+       $('#select-employee [data-value = ' + employeeId + ']').remove();
 
       //delete all associated data to employee on employee table and array
-      $('div.employees').each(function() {
-        if($(this).data('id') === employeeId) {
-          let employeeName = $(this).text();
-          nameArray.splice($.inArray(employeeName, nameArray),1);
-          $(this).remove();
-        }
-      });
-
+      $('#employees [data-id = ' + employeeId + ']').remove();
+      let employeeName = $('#employees [data-id = ' + employeeId + ']').text();
+      nameArray.splice($.inArray(employeeName, nameArray),1);
     }
   }
 }

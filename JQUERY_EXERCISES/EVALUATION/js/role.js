@@ -16,22 +16,15 @@ class Roles {
   deleteEmployeeAndAssociatedData(roleId, roleArray) {
     let confirmDelete = confirm(`All data associated with this employee will be lost.\nDo you want to proceed?`);
     if(confirmDelete) {
-      
-      //delete all associated data to employee on todos table
-      $('.name-container').each(function() {
-        if($(this).data('role_id') === roleId) {
-          $(this).parent().remove();
-        }
-      });
+     
+      let employeeName = $('.employees-in-role [id = ' + roleId + ']').text();
+      roleArray.splice($.inArray(employeeName, roleArray),1);
 
-      //delete all associated data to employee on roles, employee table and array
-      $('.employees-in-role').each(function() {
-        if($(this).data('id') === roleId) {
-          let employeeName = $(this).text();
-          roleArray.splice($.inArray(employeeName, roleArray),1);
-          $(this).remove();
-        }
-      });
+      //remove from todo list
+      $('#todos [data-id = ' + roleId + ']').parent().remove();
+     
+      //remove employee from role
+      $('#roles [id = ' + roleId + ']').remove();
     }
   }
 }

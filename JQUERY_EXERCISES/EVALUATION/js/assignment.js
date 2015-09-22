@@ -85,7 +85,7 @@ class Assignment{
     let $roleImage = $('<img />', {'data-id': employeeRoleCount});     
     let $clear = $('<div/>', { 'class': "clear" });
     let $text = $('<p />', { 'id': 'text_' + employeeRoleCount});
-    $text.append(`Add new to do for ${selectedOption} here`)
+    $text.append(`Add new to do for ${selectedOption} here`);
 
     $nameContainer
       .addClass('all-bordered')

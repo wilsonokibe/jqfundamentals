@@ -2,7 +2,7 @@
 
 class Search {
 
-  searchAction(mythis) {
+  searchAction() {
     let textToMatch = $('#search-input').val();
     if( textToMatch != "") {
       $('.todo-content').hide('slow');
@@ -38,13 +38,11 @@ class Search {
     //function blinking()
     function blinking(selector) {
       let speed = 500;
-      $(selector).fadeOut(speed, function() {
-        $(this).fadeIn(speed, function() {
-          if (!stopBlinking) {
-            return false;
-          }
-          blinking(this);
-        });
+      $(selector).fadeToggle(speed, function() { 
+        if (!stopBlinking) {
+          return;
+        }
+        blinking(this);
       });
     }
 
