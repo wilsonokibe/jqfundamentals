@@ -65,7 +65,7 @@ class Main{
     //Adding employee to role table:
     //SELCT OPTION: show select option and assign button
     let selectedRoleElement = '';
-    $('#roles').off('click').on('click', 'div', function() {
+    $('#roles').off('click').on('click', '.roles', function() {
       $('.select-list').show('slow');
       selectedRoleElement = $(this);      
     });
@@ -471,17 +471,17 @@ class Main{
       'id': 'delete-button-' + containerId, 
       'class': 'delete-button-image', 
       'src': 'images/delete.png',
-      'data-id': this.taskCounter});
+      'data-id': containerId});
     let $divButtonsImage = $('<div />', {
       'class': 'button-div', 
-      'id': 'button-group-' + this.taskCounter});
+      'id': 'button-group-' + containerId});
     let $textHolder = $('<p />', {
       'class': 'tasks', 
-      'id': 'task-' + this.taskCounter, 
+      'id': 'task-' + containerId, 
       'data-id': containerId} );
     let $inputContainer = $('<div />', {
       'class': 'task-group', 
-      'id': 'task-group-' + this.taskCounter});
+      'id': 'task-group-' + containerId});
 
     $divButtonsImage
       .append($buttonImageEdit)

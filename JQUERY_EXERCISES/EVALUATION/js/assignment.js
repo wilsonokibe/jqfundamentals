@@ -48,7 +48,7 @@ class Assignment{
     let $employeeContainer = $('<div />', {"data-container": clickedRoleElement.data('id'), 'class': 'employee-container1'});
     let $roleImage = $('<img />', {"data-id": clickedRoleElement.data('id')});     
     let $clear = $('<div />', { 'class': "clear" });
-    let $todoContent = $('<div />', {'class': 'todo-content'})
+    let $todoContent = $('<div />', {'class': 'todo-content'});
 
     $employeeContainer
       .addClass('border-top')
@@ -79,12 +79,12 @@ class Assignment{
 
   //add specific employee under a task in todo table
   appendEmployeeToRoleInTodo(selectedOption, clickedRoleElement, employeeCount, employeeRoleCount) {
-    let $nameContainer = $('<div />', {'data-id': employeeCount, 'data-employee-id': 'employee_' + employeeCount, 'data-role_id': employeeRoleCount});
-    let $taskContainer = $('<div />', {'data-id': employeeCount, 'data-employee-id': 'employee_' + employeeCount, 'id': 'group-task-' + employeeCount});
+    let $nameContainer = $('<div />', {'data-id': employeeRoleCount, 'data-employee-id': 'employee_' + employeeCount, 'data-role_id': employeeCount});
+    let $taskContainer = $('<div />', {'data-id': employeeRoleCount, 'data-employee-id': 'employee_' + employeeCount, 'id': 'group-task-' + employeeRoleCount});
     let $individualContainer = $('<div />', {'class': 'row-content'});
-    let $roleImage = $('<img />', {'data-id': employeeCount});     
+    let $roleImage = $('<img />', {'data-id': employeeRoleCount});     
     let $clear = $('<div/>', { 'class': "clear" });
-    let $text = $('<p />', { 'id': 'text_' + employeeCount});
+    let $text = $('<p />', { 'id': 'text_' + employeeRoleCount});
     $text.append(`Add new to do for ${selectedOption} here`)
 
     $nameContainer

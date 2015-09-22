@@ -3,7 +3,6 @@
 class Roles {
 
   addNewRole(value, rolesCount) {
-    // console.log('add new role here..');
     let roleId = 'role_' + rolesCount;
     let $newRoleDiv = $('<div></div>', {"data-id": roleId, "data-value": rolesCount});
     $newRoleDiv
@@ -27,9 +26,7 @@ class Roles {
 
       //delete all associated data to employee on roles, employee table and array
       $('.employees-in-role').each(function() {
-        console.log('Inside each')
         if($(this).data('id') === roleId) {
-          console.log('Inside if')
           let employeeName = $(this).text();
           roleArray.splice($.inArray(employeeName, roleArray),1);
           $(this).remove();
