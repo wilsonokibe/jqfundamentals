@@ -30,23 +30,10 @@ class Search {
   }
 
   flashEffect(nameElement) {
-    let stopBlinking = true;
-    setTimeout(function() {
-      stopBlinking = false;
-    }, 5000);
-
-    //function blinking()
-    function blinking(selector) {
-      let speed = 500;
-      $(selector).fadeToggle(speed, function() { 
-        if (!stopBlinking) {
-          return;
-        }
-        blinking(this);
-      });
+    let speed = 500;
+    for(let i = 0 ; i <= 4 ; i++){
+      $(nameElement).fadeOut(speed);
+      $(nameElement).fadeIn(speed);
     }
-
-    //CALL TO function blinking()
-    blinking(nameElement);
   }
 }

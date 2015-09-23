@@ -44,27 +44,27 @@ class Main{
 
     //Role button listener
     $('#show-role-input').click(function() {
-      self.showRoleInputField();
+      self.showInputField('employee', 'role');
     });
 
     //Role input button listener
     $('#new-role').click(function() {
-      self.isEmptyAndIsDuplicate();
+      self.addRole();
     });
 
     //Button to show new employee input field
     $('#show-employee-input').click(function() {
-      self.showEmployeeInputField();
+      self.showInputField('role', 'employee');
     });
 
     //Employee button for adding employee
     $('#new-employee').click(function() {
-      self.validateEmployeeName();
+      self.addEmployee();
     });
 
     //Adding employee to role table:
     //SELCT OPTION: show select option and assign button
-    let selectedRoleElement = '';
+    let selectedRoleElement;
     $('#roles').off('click').on('click', '.roles', function() {
       $('.select-list').show('slow');
       selectedRoleElement = $(this);      
@@ -72,8 +72,7 @@ class Main{
 
     //submit selected option click
     $('#assign-employee-btn').off('click').on('click', function() {
-      let dataId = selectedRoleElement.data('id');
-      self.assignRoleToUniqueEmployee(dataId, selectedRoleElement, ++self.employeeRoleCount);
+      self.assignRoleToUniqueEmployee(selectedRoleElement, ++self.employeeRoleCount);
     });
 
 
@@ -182,18 +181,18 @@ class Main{
   //EVENT ACTIONS:
 
   //Role button click event
-  showRoleInputField() {
+  showInputField(selectorPart1, selectorPart2) {
 
     //EMPLOYEE: hide new employee input field
-    $('#employee-input-elements').hide('slow');
+    $('#' + selectorPart1 + '-input-elements').hide('slow');
 
     //ROLE: show new role input field
-    $('#role-input-elements').show('slow');
-    $('#new-role-input').focus();
+    $('#' + selectorPart2 + '-input-elements').show('slow');
+    $('#new-' + selectorPart2 + '-input').focus();
   }
 
   //Check for empty role input value existence of value in DOM before adding to DOM
-  isEmptyAndIsDuplicate(){
+  addRole(){
     let value = $('#new-role-input').val();
 
     //validate input & check if new role already exists
@@ -201,24 +200,13 @@ class Main{
       this.roles.addNewRole(value, ++this.rolesCount);
 
       //EMPLOYEE: show new employee button
-      this.showNewEmployeeButton();     
+      this.showNewEmployeeButton(); 
+      this.hideInputField('role');
     }
-    this.hideRoleInputField();
-  }
-
- //Button to show new employee input field
-  showEmployeeInputField() {
-
-    //ROLE: hide role input field
-    $('#role-input-elements').hide('slow');
-
-    //EMPLOYEE: show new employee input field
-    $('#employee-input-elements').show('slow');
-    $('#new-employee-input').focus();
   }
 
   //validate employee's name before adding
-  validateEmployeeName() {
+  addEmployee() {
     let value = $('#new-employee-input').val();
     value = this.nameFormat(value);
 
@@ -227,25 +215,19 @@ class Main{
 
       this.employee.addNewEmployee(value, ++this.employeeCount);    
     }
-    this.hideEmployeeInputField();
+    this.hideInputField('employee');
   }
 
   //add employee to role
-  assignRoleToUniqueEmployee(dataValue, selectedRoleElement, employeeRoleCount) {
+  assignRoleToUniqueEmployee(selectedRoleElement, employeeRoleCount) {
     let self = this;
     let Count = 0;
+    let dataValue = selectedRoleElement.data('id');
 
     //check if any task has been assigned under this role previously
     if($('.' + dataValue).length >= 1){
-
-      //check if selected text already exists
-      $('.' + dataValue).each(function() {
-        if($('#select-employee option:selected').text() === $(this).text()) {
-          ++Count;
-        } 
-      });
-
-      if(Count) {
+      let valueId = $('#select-employee option:selected').data('value');
+      if($('[data-employee_id=' + valueId + '].' + dataValue).length) {
         alert(`${$(this).text()} has been assigned to ${selectedRoleElement.text()} role already. \nWe cannot have duplicates.`);
         $('.select-list').hide('slow');
         return false;
@@ -262,14 +244,14 @@ class Main{
     $('#show-employee-input').show();
   } 
 
-  hideEmployeeInputField() {
-    $('#new-employee-input').val('');
+  hideInputField(selectorPart) {
+    $('#new-' + selectorPart + '-input').val('');
     $('#employee-input-elements').hide('slow');
   }
 
-  hideRoleInputField() {
-    $('#new-role-input').val('');
-    $('#role-input-elements').hide('slow');
+  hideInputField(selectorPart) {
+    $('#new-' + selectorPart + '-input').val('');
+    $('#' + selectorPart + '-input-elements').hide('slow');
   }
 
   //TASK ACTION:
@@ -299,34 +281,31 @@ class Main{
 
   //save button-image creation
   createSaveImageButton(containerId) {
-    let $buttonImageSave = $('<img />', {
+    return $('<img />', {
       'id': 'save-button-' + containerId, 
-      'class': 'save-button-image', 
+      'class': 'save-button-image',
       'src': 'images/OK.png',
-      'data-id': containerId});
-
-    return $buttonImageSave;
+      'data-id': containerId
+      });
   }
 
   //cancel button-image creation
   createCancelImageButton(containerId)  {
-    let $buttonImageCancel = $('<img />', {
+    return $('<img />', {
       'id': 'cancel-button-' + containerId, 
       'class': 'cancel-button-image', 
       'src': 'images/delete.png',
-      'data-id': containerId});
-
-    return $buttonImageCancel;
+      'data-id': containerId
+    });
   }
 
   //input box creation
   createInputBox(containerId) {
-    let $inputElement = $('<input />', {
+    return $('<input />', {
       'id': 'task-input-' + containerId, 
       'class': 'task-input',
-      'placeholder': 'Enter task here..'});
-
-    return $inputElement;
+      'placeholder': 'Enter task here..'
+    });
   }
 
   cancelTaskCreation(containerId) {
@@ -388,36 +367,31 @@ class Main{
 
   //save button for task editing
   saveEditButton(contentId) {
-    let $saveButtonImageForEdit = $('<img />', {
+    return $('<img />', {
       'id': 'save-edit-button-' + contentId, 
       'class': 'save-edit-button-image', 
       'src': 'images/OK.png',
-      'data-id': contentId});
-
-    return $saveButtonImageForEdit;
+      'data-id': contentId
+    });
   }
 
   //cancel button for task editing
   cancelEditButton(contentId) {
-    let $cancelButtonImageForEdit = $('<img />', {
+    return $('<img />', {
       'id': 'cancel-edit-button-' + contentId, 
       'class': 'cancel-edit-button-image', 
       'src': 'images/delete.png',
-      'data-id': contentId});
-
-    return $cancelButtonImageForEdit;
+      'data-id': contentId
+    });
   }
 
   //input box for task editing
   editInputBox(contentId, textValue) {
-    let $inputElement = $('<input />', {
+    return $('<input />', {
       'id': 'task-edit-input-' + contentId, 
-      'class': 'task-input'});
-
-    $inputElement
+      'class': 'task-input'
+    })
       .val(textValue);
-
-    return $inputElement;
   }
 
   //cancellation of editing process

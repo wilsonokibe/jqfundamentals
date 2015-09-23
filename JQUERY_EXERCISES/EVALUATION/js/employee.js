@@ -18,12 +18,7 @@ class Employee {
 
   addEmployeeToSelectOption(value, employeeCount) {
     let employeeId = 'option_' + employeeCount;
-    let $selectOption = $('<option></option>', {"data-id": employeeId, "data-value": employeeCount});
-
-    $selectOption
-      .text(value);
-
-    $selectOption
+    let $selectOption = $('<option></option>', {"data-id": employeeId, "data-value": employeeCount, 'text': value})
       .appendTo('#select-employee');
   }
 

@@ -29,12 +29,9 @@ class Assignment{
   appendRoleIfNotAlreadyAppended(clickedRoleElement) {
     let roleInTodoCount = 0;
     if($('.task-detail').length >= 1){
-      $('.task-detail').each(function() {
-        if($(this).data('id') === clickedRoleElement.data('id')) {
-          ++roleInTodoCount;
-        }
-      });
-      if(!roleInTodoCount){
+       let clickedDataId = clickedRoleElement.data('id');
+       
+      if(!$('.todo-content').find( '[data-id = ' + clickedDataId + ']').length){
         this.appendRoleInTodo(clickedRoleElement); 
       }
     } 
