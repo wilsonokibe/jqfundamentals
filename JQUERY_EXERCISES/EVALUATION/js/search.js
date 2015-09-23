@@ -31,9 +31,11 @@ class Search {
 
   flashEffect(nameElement) {
     let speed = 500;
-    for(let i = 0 ; i <= 4 ; i++){
+    let i = 0; 
+    while(i <= 4){
       $(nameElement).fadeOut(speed);
       $(nameElement).fadeIn(speed);
+      i++;
     }
   }
 }
