@@ -464,7 +464,7 @@ class Main{
       'id': 'edit-button-' + containerId, 
       'class': 'edit-button-image', 
       'src': 'images/edit.png',
-      'data-id': ++this.taskCounter});
+      'data-id': containerId});
 
     //delete button creation
     let $buttonImageRemove = $('<img />', {
