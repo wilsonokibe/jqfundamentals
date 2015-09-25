@@ -97,7 +97,7 @@ class Main{
     //Save task on button click
     $('#todos').on('click', '.save-button-image', function(){
       let contentId = $(this).data('id');      
-      self.saveTask(contentId);
+      self.saveTask(contentId, ++self.taskCounter);
     });
 
     //Delete existing task on click
@@ -109,6 +109,7 @@ class Main{
     //Edit existing task
     $('#todos').on('click', '.edit-button-image', function() {
       let contentId = $(this).data('id');
+      let taskCounterId = $(this).data('taskcounter');
       let textValue = $('#task-' + contentId).text();
       self.editTask(contentId, textValue);
       $('#task-edit-input-' + contentId).focus();
@@ -263,7 +264,7 @@ class Main{
     if($('#task-input-' + containerId).length == 0) {      
       let $buttonsImageDiv = $('<div />', {'class': 'button-div'});
       let $inputContainer = $('<div />', {
-        'class': 'input-group', 
+        'class': 'input-group',
         'id': 'input-group-' + containerId});      
       
       $buttonsImageDiv
@@ -282,7 +283,7 @@ class Main{
   //save button-image creation
   createSaveImageButton(containerId) {
     return $('<img />', {
-      'id': 'save-button-' + containerId, 
+      'id': 'save-button-' + containerId,
       'class': 'save-button-image',
       'src': 'images/OK.png',
       'data-id': containerId
@@ -292,7 +293,7 @@ class Main{
   //cancel button-image creation
   createCancelImageButton(containerId)  {
     return $('<img />', {
-      'id': 'cancel-button-' + containerId, 
+      'id': 'cancel-button-' + containerId,
       'class': 'cancel-button-image', 
       'src': 'images/delete.png',
       'data-id': containerId
@@ -302,7 +303,7 @@ class Main{
   //input box creation
   createInputBox(containerId) {
     return $('<input />', {
-      'id': 'task-input-' + containerId, 
+      'id': 'task-input-' + containerId,
       'class': 'task-input',
       'placeholder': 'Enter task here..'
     });
@@ -316,11 +317,11 @@ class Main{
   }
 
   //save new task
-  saveTask(contentId) {
+  saveTask(contentId, taskCounter) {
     let inputValue = $('#task-input-' + contentId).val();
       
     if(!this.validator.isEmpty(inputValue)) {
-      this.createTextTask(contentId, inputValue);
+      this.createTextTask(contentId, inputValue, taskCounter);
       $('#input-group-' + contentId).remove();
     }
   }
@@ -431,31 +432,31 @@ class Main{
   }
 
   //create and save entered input as text for task
-  createTextTask(containerId, inputValue) {
+  createTextTask(containerId, inputValue, taskCounter) {
 
     //edit button creation
     let $buttonImageEdit = $('<img />', {
-      'id': 'edit-button-' + containerId, 
+      'id': 'edit-button-' + taskCounter,
       'class': 'edit-button-image', 
       'src': 'images/edit.png',
-      'data-id': containerId});
+      'data-id': taskCounter});
 
     //delete button creation
     let $buttonImageRemove = $('<img />', {
-      'id': 'delete-button-' + containerId, 
+      'id': 'delete-button-' + taskCounter,
       'class': 'delete-button-image', 
       'src': 'images/delete.png',
-      'data-id': containerId});
+      'data-id': taskCounter});
     let $divButtonsImage = $('<div />', {
       'class': 'button-div', 
-      'id': 'button-group-' + containerId});
+      'id': 'button-group-' + taskCounter});
     let $textHolder = $('<p />', {
       'class': 'tasks', 
-      'id': 'task-' + containerId, 
-      'data-id': containerId} );
+      'id': 'task-' + taskCounter, 
+      'data-id': taskCounter} );
     let $inputContainer = $('<div />', {
       'class': 'task-group', 
-      'id': 'task-group-' + containerId});
+      'id': 'task-group-' + taskCounter});
 
     $divButtonsImage
       .append($buttonImageEdit)
