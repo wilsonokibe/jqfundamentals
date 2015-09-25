@@ -222,33 +222,22 @@ class Main{
   //add employee to role
   assignRoleToUniqueEmployee(selectedRoleElement, employeeRoleCount) {
     let self = this;
-    let Count = 0;
     let dataValue = selectedRoleElement.data('id');
 
     //check if any task has been assigned under this role previously
-    if($('.' + dataValue).length >= 1){
-      let valueId = $('#select-employee option:selected').data('value');
-      if($('[data-employee_id=' + valueId + '].' + dataValue).length) {
-        alert(`${$(this).text()} has been assigned to ${selectedRoleElement.text()} role already. \nWe cannot have duplicates.`);
-        $('.select-list').hide('slow');
-        return false;
-      } else{
-          self.assignment.assignEmployeeToRole(selectedRoleElement, employeeRoleCount);            
-        }
-    } else {
-      self.assignment.assignEmployeeToRole(selectedRoleElement, employeeRoleCount);
-    }
+    let valueId = $('#select-employee option:selected').data('value');
+    if($('[data-employee_id=' + valueId + '].' + dataValue).length) {
+      alert(`${$(this).text()} has been assigned to ${selectedRoleElement.text()} role already. \nWe cannot have duplicates.`);
+      return false;
+    } else{
+        self.assignment.assignEmployeeToRole(selectedRoleElement, employeeRoleCount);            
+      }
   }
 
   //show new employee button
   showNewEmployeeButton() {    
     $('#show-employee-input').show();
   } 
-
-  hideInputField(selectorPart) {
-    $('#new-' + selectorPart + '-input').val('');
-    $('#employee-input-elements').hide('slow');
-  }
 
   hideInputField(selectorPart) {
     $('#new-' + selectorPart + '-input').val('');

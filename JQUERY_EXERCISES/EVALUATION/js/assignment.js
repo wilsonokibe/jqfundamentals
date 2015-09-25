@@ -28,15 +28,10 @@ class Assignment{
 
   appendRoleIfNotAlreadyAppended(clickedRoleElement) {
     let roleInTodoCount = 0;
-    if($('.task-detail').length >= 1){
-       let clickedDataId = clickedRoleElement.data('id');
-       
-      if(!$('.todo-content').find( '[data-id = ' + clickedDataId + ']').length){
-        this.appendRoleInTodo(clickedRoleElement); 
-      }
-    } 
-    else{
-      this.appendRoleInTodo(clickedRoleElement);      
+    let clickedDataId = clickedRoleElement.data('id');
+     
+    if(!$('.todo-content').find( '[data-id = ' + clickedDataId + ']').length){
+      this.appendRoleInTodo(clickedRoleElement); 
     }
   }
 
